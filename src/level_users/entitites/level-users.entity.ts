@@ -1,11 +1,12 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Users } from "#/users/entities/users-entity";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export class LevelUsers{
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column()
+    @Column({type: "varchar", length: 25})
     name: string;
 
     @CreateDateColumn({
@@ -25,4 +26,7 @@ export class LevelUsers{
         nullable: true
     })
     deletedAt: Date
+
+    @OneToMany(() => Users, (users) => users.level)
+    users: Users;
 }
